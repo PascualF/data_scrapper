@@ -42,25 +42,29 @@ while page <= 7:
 
             soup2 = bs(res2.content, 'html.parser') 
 
-            try:
-                mail_div = soup2.find(class_ = "flex items-center mt-2")
-            except:
-                mail_div = 'N/A'
+            #try:
+            mail_div = soup2.find(class_ = "flex items-center mt-2")
+            #except:
+            #   mail_div = 'N/A'
             
-            if mail_div.find(class_ = "link") != 'NoneType':
+            if mail_div is not None:
                 mail_text = mail_div.find(class_ = "link")
             else:
                 mail_text = 'N/A'
-            
+            print(mail_text)
+            print('mail_text')
+            if mail_text == 'N/A' :
+                mail_to_text = 'N/A'
+            else:
+                mail_to_text = mail_text.get_text()
+
             description_text = soup2.find(class_ = "mt-12 redactor")
             
+            
 
-            #print(description_text)
-            mail_list.append(mail_text.text if mail_text else "N/A")
-            #print(mail_list)
+            mail_list.append(mail_to_text)
+
             description_list.append(description_text.text if description_text else "N/A")
-
-        
 
     title_all = members_wrapper.find_all('a', class_="transition-colors duration-200 link--extended hover:text-primary hover:underline")
 
